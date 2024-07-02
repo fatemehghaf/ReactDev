@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import image from '../src/Img/Max.jpg';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 <div>
-  <h1>Hello React</h1>
+  <h1>Hello My Name if Fatemeh Ghafouri!</h1>
+  <img src={image} alt="" height='300' className="imgStyle"/>
 </div>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+
