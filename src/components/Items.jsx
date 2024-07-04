@@ -1,16 +1,19 @@
+import { useDispatch } from "react-redux";
 import { DeleteButton, TaskContainer, TaskText } from "./Style";
+import { del, toggleDone } from "../store/slices/todoList";
 
-const Items = ({ work, onDoneToggle, onDelete }) => {
+export default function Item({index,work}){
+const dispatch = useDispatch();
+
   return (
     <>
-      <TaskContainer key={work.title}>
-        <input type="checkbox" checked={work.done} onChange={onDoneToggle} />
+      <TaskContainer >
+        <input type="checkbox" checked={work.done}
+        onChange={() => dispatch(toggleDone(index))} />
         <TaskText done={work.done}>{work.title}</TaskText>
 
-        <DeleteButton onClick={onDelete}>Del</DeleteButton>
+        <DeleteButton onClick={() => dispatch(del(index))}>Del</DeleteButton>
       </TaskContainer>
     </>
   );
 };
-
-export default Items;

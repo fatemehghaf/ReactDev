@@ -1,12 +1,12 @@
-import { useReducer } from "react";
 import { Container, Title } from "./Style";
 import Items from "./Items";
 import AddPart from "./AddPart";
-import { type } from "@testing-library/user-event/dist/type";
-import { initialState, reducer } from "./reducer";
+import { useSelector } from "react-redux";
 
-function ToDo() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+
+
+export default function ToDo() {
+  const works = useSelector((store) => store.todoList.works);
 
   return (
     <Container>
@@ -17,8 +17,8 @@ function ToDo() {
           style={{ width: "100%", border: "2px solid cyan", margin: "20px 0" }}
         />
 
-        <AddPart onAdd={(value) => dispatch({ type: "add", payload: value })} />
-        {state.newTask.length === 0 ? (
+        <AddPart/>
+        {works.length === 0 ? (
           <div
             style={{
               backgroundColor: "#ffb3b3",
@@ -28,11 +28,11 @@ function ToDo() {
             Nothing to do
           </div>
         ) : (
-          state.newTask.map((work, index) => (
+          works.map((work, index) => (
             <Items
               work={work}
-              onDoneToggle={() => dispatch({ type: "check", payload: index })}
-              onDelete={() => dispatch({ type: "del", payload: index })}
+              key={work.title}
+              index={index}
             />
           ))
         )}
@@ -41,4 +41,4 @@ function ToDo() {
   );
 }
 
-export default ToDo;
+
