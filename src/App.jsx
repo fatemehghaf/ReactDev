@@ -1,54 +1,45 @@
-import { useEffect, useState } from "react";
-import SearchBar from "./Components/SearchBar";
-import Characters from "./Components/Characters";
-import PageBtn from "./Components/PageBtn";
+import { useState } from "react";
+import { AddButton, Container, Input, Title } from "./components/Style";
+import TaskList from "./components/TaskList";
 
-export default function App() {
-  const [users, setUsers] = useState([]);
-  const [searchText, setSearchText] = useState("");
-  const [currentPage, setCurrentPage]=useState(1);
+function App() {
+  const [todoList, setTodoList] = useState("");
+  const [newTask, setNewTask] = useState([
+    { title: "Wake Up", done: false },
+    { title: "Drink Coffee", done: false },
+  ]);
 
-  const searchIcon = <>&#128269;</>
-
-
-  useEffect(() => {
-    fetch(
-      `https://rickandmortyapi.com/api/character?name=${searchText}&page=${currentPage}`
-        
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-        setUsers(res.results);
-      });
-  }, [searchText, currentPage]);
-
-  const handleNextPage = () => {
-    setCurrentPage(currentPage + 1);
-  };
-
-  const handlePrevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
+  const handleAddClick = () => {
+    setTodoList("");
+    const newWorkObj = { title: todoList, done: false };
+    setNewTask([...newTask, newWorkObj]);
   };
 
   return (
-    <>
-     <SearchBar
-        searchText={searchText}
-        setSearchText={setSearchText}
-        searchIcon={searchIcon}
-      />
-      <hr/>
-      <PageBtn currentPage={currentPage}
-        handleNextPage={handleNextPage}
-        handlePrevPage={handlePrevPage}/>
+    <Container>
+      <div>
+      <Title>
+          ToDo App in ReactJs
+        </Title>
 
-      <Characters users={users} />
+        <hr style={{width: "100%",
+            border: "2px solid cyan",
+            margin: "20px 0",
+            }}  />
 
+        <Input
+          type="text"
+          placeholder="Freaking ToDo"
+          value={todoList}
+          onChange={(e) => setTodoList(e.target.value)}
+        />
 
-      {!users && <div>No Other Match</div>}
-    </>
+        <AddButton onClick={handleAddClick}>+ Add Todo</AddButton>
+
+        <TaskList newTask={newTask} setNewTask={setNewTask} />
+      </div>
+    </Container>
   );
 }
+
+export default App;
