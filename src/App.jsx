@@ -4,14 +4,19 @@ import Users from "./pages/Users";
 import About from "./pages/About";
 import UserDetails from "./pages/UserDetails";
 import NotFound from "./pages/NotFound";
-import { Container, Content, Links, Nav  } from "./pages/components/Style";
 import Options from "./pages/Options";
-import colorSlice from "./store/slices/colorSlice";
+import { Container, Content, GlobalStyle, Links, Nav  } from "./pages/components/Style";
+import { ThemeProvider } from "styled-components";
+import { useSelector } from "react-redux";
 
 
 
 export default function App() {
+  const { currentTheme, themes } = useSelector(state => state.theme);
+  const theme = themes[currentTheme];
   return (
+    <ThemeProvider theme={theme}>
+      <GlobalStyle/>
     <BrowserRouter>
     <Container>
         <Nav>
@@ -32,5 +37,6 @@ export default function App() {
         </Content>
       </Container>
     </BrowserRouter>
+    </ThemeProvider>
   );
 }

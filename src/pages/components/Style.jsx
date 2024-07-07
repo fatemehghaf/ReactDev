@@ -1,9 +1,21 @@
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+
+export const GlobalStyle = createGlobalStyle`
+  body {
+    color: ${({ theme }) => theme.textColor};
+    background-color: ${({ theme }) => theme.bgColor};
+    border-color: ${({ theme }) => theme.borderColor};
+    margin:0;
+  }
+`;
+
 export const Container = styled.div`
   display: flex;
+  
+
 `;
 
 export const Nav = styled.nav`
@@ -16,11 +28,12 @@ export const Nav = styled.nav`
 
 
 export const Content = styled(({ ...props }) => {
-  const { textColor, borderColor } = useSelector((state) => state.colors);
-  return <Link {...props} style={{ color: textColor, border: `2px solid ${borderColor}` }} />;
+  const { textColor, borderColor,bgColor } = useSelector((state) => state.colors);
+  return <Link {...props} style={{ color: textColor, border: `2px solid ${borderColor}`,backgroundColor:bgColor }} />;
 })`
   flex: 1;
   padding: 5%;
+  background-color: ${({ theme }) => theme.bgColor};
 `;
 
 /*export const Links = styled(Link)`
@@ -37,19 +50,18 @@ export const Content = styled(({ ...props }) => {
 `;*/
 
 export const Links = styled(({ ...props }) => {
-  const { textColor, borderColor } = useSelector((state) => state.colors);
-  return <Link {...props} style={{ color: textColor, border: `1px solid ${borderColor}` }} />;
+  const { textColor, borderColor,bgColor } = useSelector((state) => state.colors);
+  return <Link {...props} style={{ color: textColor, backgroundColor:bgColor, border: `1px solid ${borderColor}`, }} />;
 })`
 text-decoration: none;
   padding: 8px 16px;
   border-radius: 5px;
   &:hover {
-    background-color: #ddd;
   }`;
 
 export const UserContainer = styled(({ ...props }) => {
-  const { textColor, borderColor } = useSelector((state) => state.colors);
-  return <Link {...props} style={{ color: textColor, border: `3px solid ${borderColor}` }} />;
+  const { textColor, borderColor,bgColor } = useSelector((state) => state.colors);
+  return <Link {...props} style={{ color: textColor, border: `3px solid ${borderColor}` ,backgroundColor:bgColor }} />;
 })`
   flex-Direction: column;
    display:inline-flex;
@@ -57,7 +69,6 @@ export const UserContainer = styled(({ ...props }) => {
    margin-Bottom: 10;
    margin:10px;
    gap: 10px;
-  border: 3px solid cyan;
   padding: 10px;
   width: 200px;
 `;

@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  textColor: "#000000",
+  textColor: "black",
   borderColor: 'cyan',
+  bgColor: 'khaki',
 };
 
 const colorSlice = createSlice({
@@ -15,9 +16,13 @@ const colorSlice = createSlice({
     setBorderColor: (state, action) => {
       state.borderColor = action.payload;
     },
+    setBgColor: (state, action) => {
+      state.bgColor = action.payload;
+    },
+    
   },
 });
 
-export const { setTextColor, setBorderColor } = colorSlice.actions;
+export const { setTextColor, setBorderColor,setBgColor } = colorSlice.actions;
 
 export default colorSlice.reducer;
